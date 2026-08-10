@@ -1071,13 +1071,24 @@ function attachGlobalEvents(){
   const adminSubmit = document.querySelector('[data-admin-submit]');
   if(adminSubmit) adminSubmit.addEventListener('click', async ()=>{
     const provider = new firebase.auth.GoogleAuthProvider();
+    const popupBlockedCodes = ['auth/popup-blocked','auth/cancelled-popup-request','auth/popup-closed-by-user'];
     try{
       const result = await auth.signInWithPopup(provider);
       checkAdminEmail(result.user);
     }catch(e){
-      // النوافذ المنبثقة غالباً محظورة في متصفحات الهاتف — نجربي التوجيه (redirect) بدلها
+      console.error(e);
+      if(!popupBlockedCodes.includes(e.code)){
+        // خطأ حقيقي في الإعداد (نطاق غير مصرح، مزود غير مفعّل...) — لا فائدة من إعادة المحاولة عبر التوجيه
+        document.getElementById('admin-err').textContent = 'تعذر تسجيل الدخول: ' + (e.code || e.message);
+        return;
+      }
+      // النافذة المنبثقة محظورة في متصفح الهاتف — نجربي التوجيه (redirect) بدلها
       try{ await auth.signInWithRedirect(provider); }
-      catch(e2){ console.error(e2); document.getElementById('admin-err').textContent='تعذر تسجيل الدخول، حاولي مجدداً'; }
+      catch(e2){
+        console.error(e2);
+        const codeText = (e2 && e2.code) ? ` (${e2.code})` : '';
+        document.getElementById('admin-err').textContent = 'تعذر تسجيل الدخول، حاولي مجدداً' + codeText;
+      }
     }
   });
 
