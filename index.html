@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> | Dalal Style</title>
+<title>دلال ستايل | Dalal Style</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -340,12 +340,12 @@ footer.site{background:var(--wine-dark); color:rgba(251,246,241,.7); padding:40p
    4) من Project settings → إضافة تطبيق ويب → انسخي كائن firebaseConfig وألصقيه هنا
    ============================================================ */
 const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyCOVic0ZT0MlgmRBV-NEIRcOLQdP09NL6k",
-  authDomain: "dalal-stayle.firebaseapp.com",
-  projectId: "dalal-stayle",
-  storageBucket: "dalal-stayle.firebasestorage.app",
-  messagingSenderId: "1046883387825",
-  appId: "1:1046883387825:web:e2967ebbb2388dd7db1590"
+  apiKey: "AIzaSyABy2RRSCFfzV9ZULn8us77jpXf-g9r_cU",
+  authDomain: "anoutha-style-75aeb.firebaseapp.com",
+  projectId: "anoutha-style-75aeb",
+  storageBucket: "anoutha-style-75aeb.firebasestorage.app",
+  messagingSenderId: "751301536925",
+  appId: "1:751301536925:web:47bea090a3354a6f50f874"
 };
 const FIREBASE_READY = FIREBASE_CONFIG.apiKey && !FIREBASE_CONFIG.apiKey.includes('ضعي');
 let db=null, auth=null;
@@ -408,37 +408,8 @@ function fmt(n){ return Math.round(n).toLocaleString('en-US') + ' د.م.'; }
 function todayISO(){ return new Date().toISOString().slice(0,10); }
 
 function seedState(){
-  const products = [
-    {id:uid('P'), name:'فستان سهرة أطلسي كحلي', category:'فساتين سهرة', occasion:'سهرة', price:890,
-     colors:['كحلي','أسود'], sizes:['S','M','L','XL'], stock:{S:4,M:6,L:3,XL:2},
-     images:['https://picsum.photos/seed/dalal1/600/750'], desc:'فستان سهرة طويل بقصة أنيقة من قماش الأطلس الفاخر، مناسب للمناسبات الرسمية والسهرات.'},
-    {id:uid('P'), name:'فستان سهرة ذهبي مطرز', category:'فساتين سهرة', occasion:'مناسبة رسمية', price:1200,
-     colors:['ذهبي'], sizes:['S','M','L'], stock:{S:2,M:1,L:2},
-     images:['https://picsum.photos/seed/dalal2/600/750'], desc:'تطريز يدوي فاخر بلمسة ذهبية، قصة تبرز الأناقة في كل تفصيلة.'},
-    {id:uid('P'), name:'بدلة عمل كلاسيك بيج', category:'ملابس عمل', occasion:'عمل', price:650,
-     colors:['بيج','أسود'], sizes:['S','M','L','XL'], stock:{S:5,M:7,L:6,XL:4},
-     images:['https://picsum.photos/seed/dalal3/600/750'], desc:'بدلة عمل عصرية بقصة مريحة وأنيقة، مثالية لأجواء المكتب.'},
-    {id:uid('P'), name:'قميص كاجوال مقلم', category:'ملابس كاجوال', occasion:'يومي', price:220,
-     colors:['أبيض','أحمر'], sizes:['S','M','L','XL'], stock:{S:8,M:10,L:6,XL:5},
-     images:['https://picsum.photos/seed/dalal4/600/750'], desc:'قميص قطني خفيف بخطوط أنيقة، مناسب للإطلالات اليومية.'},
-    {id:uid('P'), name:'فستان كاجوال صيفي وردي', category:'ملابس كاجوال', occasion:'كاجوال', price:310,
-     colors:['وردي','أبيض'], sizes:['S','M','L'], stock:{S:6,M:2,L:4},
-     images:['https://picsum.photos/seed/dalal5/600/750'], desc:'فستان صيفي خفيف بقصة مريحة وألوان زاهية.'},
-    {id:uid('P'), name:'طقم عمل أسود أنيق', category:'ملابس عمل', occasion:'عمل', price:780,
-     colors:['أسود'], sizes:['M','L','XL','XXL'], stock:{M:3,L:5,XL:3,XXL:2},
-     images:['https://picsum.photos/seed/dalal6/600/750'], desc:'طقم عمل بقصة كلاسيكية أنيقة، خامة عالية الجودة.'},
-    {id:uid('P'), name:'حقيبة يد جلد ذهبية', category:'إكسسوارات', occasion:'سهرة', price:450,
-     colors:['ذهبي','أسود'], sizes:['مقاس واحد'], stock:{'مقاس واحد':9},
-     images:['https://picsum.photos/seed/dalal7/600/750'], desc:'حقيبة يد جلدية فاخرة تكمل إطلالة السهرة بلمسة عصرية.'},
-    {id:uid('P'), name:'طقم إكسسوارات لؤلؤ', category:'إكسسوارات', occasion:'مناسبة رسمية', price:320,
-     colors:['أبيض','ذهبي'], sizes:['مقاس واحد'], stock:{'مقاس واحد':1},
-     images:['https://picsum.photos/seed/dalal8/600/750'], desc:'عقد وأقراط لؤلؤ أنيقة تناسب المناسبات الخاصة.'}
-  ];
   return {
-    products, orders: [], coupons: [
-      {code:'دلال10', type:'percent', value:10, active:true},
-      {code:'WELCOME50', type:'fixed', value:50, active:true}
-    ],
+    products: [], orders: [], coupons: [],
     wallet: { withdrawn: 0, transactions: [] }
   };
 }
@@ -475,14 +446,8 @@ function loadData(){
     let flags = {products:false, orders:false, coupons:false, wallet:false, meta:false};
     const done = ()=>{ if(Object.values(flags).every(Boolean)) resolve(); };
 
-    unsubscribers.push(db.collection('products').onSnapshot(async snap=>{
-      if(snap.empty && !seededProducts){
-        seededProducts = true;
-        try{ await Promise.all(seedState().products.map(p=>saveProduct(p))); }
-        catch(e){ console.error('seed products failed (needs admin login)', e); seededProducts = false; }
-      }else{
-        state.data.products = snap.docs.map(d=>d.data());
-      }
+    unsubscribers.push(db.collection('products').onSnapshot(snap=>{
+      state.data.products = snap.docs.map(d=>d.data());
       flags.products=true; done(); render();
     }, ()=>{ flags.products=true; done(); }));
 
@@ -498,14 +463,8 @@ function loadData(){
       flags.orders=true; done(); render();
     }, ()=>{ flags.orders=true; done(); }));
 
-    unsubscribers.push(db.collection('coupons').onSnapshot(async snap=>{
-      if(snap.empty && !seededCoupons){
-        seededCoupons = true;
-        try{ await Promise.all(seedState().coupons.map(c=>saveCoupon(c))); }
-        catch(e){ console.error('seed coupons failed (needs admin login)', e); seededCoupons = false; }
-      }else{
-        state.data.coupons = snap.docs.map(d=>d.data());
-      }
+    unsubscribers.push(db.collection('coupons').onSnapshot(snap=>{
+      state.data.coupons = snap.docs.map(d=>d.data());
       flags.coupons=true; done(); render();
     }, ()=>{ flags.coupons=true; done(); }));
 
@@ -592,7 +551,6 @@ function renderHeader(){
         <button class="icon-btn" data-open-cart="1" title="السلة">🛍️
           ${cartCount()>0?`<span class="badge-count">${cartCount()}</span>`:''}
         </button>
-        <button class="admin-link" data-nav="admin-login">لوحة التحكم</button>
       </div>
     </div>
   </header>`;
@@ -1227,7 +1185,21 @@ function renderProductFormModal(existing){
             <select id="pf-occasion">${OCCASIONS.map(o=>`<option ${p.occasion===o?'selected':''}>${o}</option>`).join('')}</select>
           </div>
         </div>
-        <div class="form-group"><label>رابط الصورة</label><input id="pf-image" value="${p.images[0]||''}" placeholder="https://..."></div>
+        <div class="form-group">
+          <label>صورة المنتج</label>
+          <div class="row-flex" style="gap:10px; align-items:center; flex-wrap:wrap;">
+            <button type="button" class="btn btn-ghost btn-sm" id="pf-upload-btn">📷 اختاري صورة من الهاتف</button>
+            <input type="file" id="pf-image-file" accept="image/*" style="display:none;">
+            <span id="pf-upload-status" class="hint"></span>
+          </div>
+          <div id="pf-image-preview-wrap" style="margin-top:10px; ${p.images[0]?'':'display:none;'}">
+            <img id="pf-image-preview" src="${p.images[0]||''}" style="max-width:160px; max-height:160px; border-radius:10px; border:1px solid rgba(122,90,94,.25); object-fit:cover;">
+          </div>
+          <details style="margin-top:8px;">
+            <summary class="hint" style="cursor:pointer;">أو ألصقي رابط صورة (اختياري)</summary>
+            <input id="pf-image" value="${(p.images[0]||'').startsWith('data:')?'':(p.images[0]||'')}" placeholder="https://..." style="margin-top:8px;">
+          </details>
+        </div>
         <div class="form-group"><label>الوصف</label><textarea id="pf-desc">${p.desc}</textarea></div>
         <div class="form-group">
           <label>الألوان المتوفرة</label>
@@ -1259,6 +1231,43 @@ function attachProductFormEvents(p){
   root.querySelector('[data-close-modal]').addEventListener('click', closeModal);
   let selColors = new Set(p.colors);
   let selSizes = new Set(p.sizes);
+  let uploadedImage = (p.images[0]||'').startsWith('data:') ? p.images[0] : null;
+  const uploadBtn = root.querySelector('#pf-upload-btn');
+  const fileInput = root.querySelector('#pf-image-file');
+  const statusEl = root.querySelector('#pf-upload-status');
+  const previewWrap = root.querySelector('#pf-image-preview-wrap');
+  const previewImg = root.querySelector('#pf-image-preview');
+  uploadBtn.addEventListener('click', ()=> fileInput.click());
+  fileInput.addEventListener('change', ()=>{
+    const file = fileInput.files[0];
+    if(!file) return;
+    if(!file.type.startsWith('image/')){
+      statusEl.textContent = 'الرجاء اختيار ملف صورة صالح';
+      return;
+    }
+    statusEl.textContent = 'جارٍ تجهيز الصورة...';
+    const reader = new FileReader();
+    reader.onload = e=>{
+      const img = new Image();
+      img.onload = ()=>{
+        const maxDim = 900;
+        let w = img.width, h = img.height;
+        if(w > h && w > maxDim){ h = Math.round(h*maxDim/w); w = maxDim; }
+        else if(h > maxDim){ w = Math.round(w*maxDim/h); h = maxDim; }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        uploadedImage = canvas.toDataURL('image/jpeg', 0.72);
+        previewImg.src = uploadedImage;
+        previewWrap.style.display = '';
+        statusEl.textContent = 'تم اختيار الصورة ✓';
+      };
+      img.onerror = ()=>{ statusEl.textContent = 'تعذر قراءة الصورة'; };
+      img.src = e.target.result;
+    };
+    reader.onerror = ()=>{ statusEl.textContent = 'تعذر رفع الصورة'; };
+    reader.readAsDataURL(file);
+  });
   root.querySelectorAll('.pf-color').forEach(el=>el.addEventListener('click', ()=>{
     const c = el.dataset.pfColor;
     if(selColors.has(c)) selColors.delete(c); else selColors.add(c);
@@ -1275,7 +1284,7 @@ function attachProductFormEvents(p){
     const price = Number(document.getElementById('pf-price').value);
     const category = document.getElementById('pf-category').value;
     const occasion = document.getElementById('pf-occasion').value;
-    const image = document.getElementById('pf-image').value.trim() || 'https://picsum.photos/seed/'+Math.random()+'/600/750';
+    const image = uploadedImage || document.getElementById('pf-image').value.trim() || 'https://picsum.photos/seed/'+Math.random()+'/600/750';
     const desc = document.getElementById('pf-desc').value.trim();
     if(!name || !price || selColors.size===0 || selSizes.size===0){
       document.getElementById('pf-error').textContent = 'الرجاء تعبئة الاسم والسعر واختيار لون ومقاس واحد على الأقل';
@@ -1582,16 +1591,13 @@ function attachAdminEvents(){
     }
     state.isAdmin = !!user;
     if(user && state.view==='admin-login') state.adminTab='products';
-    // إعادة محاولة تسجيل المنتجات/الكوبونات الافتراضية الآن أن الدخول كأدمن نجح
-    if(user){
-      try{
-        if(state.data.products.length===0) await Promise.all(seedState().products.map(p=>saveProduct(p)));
-        if(state.data.coupons.length===0) await Promise.all(seedState().coupons.map(c=>saveCoupon(c)));
-      }catch(e){ console.error('admin reseed failed', e); }
-    }
-    if(state.data.products.length || state.data.orders.length || !state.isAdmin) render();
+    render();
   });
   await loadData();
+  if(window.location.hash === '#admin'){ state.view = 'admin-login'; }
+  window.addEventListener('hashchange', ()=>{
+    if(window.location.hash === '#admin'){ state.view = 'admin-login'; render(); }
+  });
   render();
 })();
 </script>
