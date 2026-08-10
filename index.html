@@ -359,8 +359,8 @@ if(FIREBASE_READY){
    "Trigger Email" من Firebase Extensions لإرسال بريد فعلي — راجعي التعليمات) */
 const STORE_OWNER_EMAIL = "abdlhafidlahlou@gmail.com";
 const NOTIFY_EMAIL_READY = STORE_OWNER_EMAIL && !STORE_OWNER_EMAIL.includes('ضعي');
-/* البريد المسموح له بالدخول للوحة التحكم عبر Google Sign-In */
-const ADMIN_EMAIL = "abdlhafidlahlou@gmail.com";
+/* البريد المسموح له بالدخول للوحة التحكم (Google أو بريد/كلمة سر) */
+const ADMIN_EMAILS = ["abdlhafidlahlou@gmail.com", "Dalallahlou@gmail.com"].map(e=>e.toLowerCase());
 
 function sendOwnerOrderEmail(order){
   if(!NOTIFY_EMAIL_READY) return Promise.resolve();
@@ -384,7 +384,7 @@ function playNotifySound(){
 }
 async function checkAdminEmail(user){
   if(!user) return;
-  if(user.email !== ADMIN_EMAIL){
+  if(!user.email || !ADMIN_EMAILS.includes(user.email.toLowerCase())){
     await auth.signOut();
     const errEl = document.getElementById('admin-err');
     if(errEl) errEl.textContent = 'هذا الحساب غير مصرح له بالدخول للوحة التحكم';
@@ -1012,9 +1012,25 @@ function renderAdminLogin(){
     <div class="login-box">
       <span class="em">🔐</span>
       <h2 style="color:var(--wine); margin-bottom:6px;">لوحة تحكم المسيّر</h2>
-      <p class="hint" style="margin-bottom:18px;">سجّلي الدخول بحساب Google الخاص بصاحبة المتجر</p>
+      <p class="hint" style="margin-bottom:18px;">سجّلي الدخول بحساب صاحبة المتجر</p>
       <div id="admin-err" class="err" style="margin-bottom:12px;"></div>
-      <button class="btn btn-wine" style="width:100%; justify-content:center;" data-admin-submit="1">
+      <div class="form-group" style="text-align:right;">
+        <label>البريد الإلكتروني</label>
+        <input id="admin-email" type="email" placeholder="example@gmail.com">
+      </div>
+      <div class="form-group" style="text-align:right;">
+        <label>كلمة السر</label>
+        <input id="admin-password" type="password" placeholder="••••••••">
+      </div>
+      <button class="btn btn-wine" style="width:100%; justify-content:center; margin-bottom:12px;" data-admin-password-submit="1">
+        تسجيل الدخول
+      </button>
+      <div style="display:flex; align-items:center; gap:10px; margin:14px 0; color:var(--ink-soft); font-size:12px;">
+        <div style="flex:1; height:1px; background:rgba(122,90,94,.25);"></div>
+        أو
+        <div style="flex:1; height:1px; background:rgba(122,90,94,.25);"></div>
+      </div>
+      <button class="btn btn-outline" style="width:100%; justify-content:center;" data-admin-submit="1">
         🔵 تسجيل الدخول بواسطة Google
       </button>
     </div>
@@ -1066,6 +1082,28 @@ function attachGlobalEvents(){
     trackQuery.orderId = document.getElementById('tk-id').value;
     trackQuery.phone = document.getElementById('tk-phone').value;
     render();
+  });
+
+  const adminPasswordSubmit = document.querySelector('[data-admin-password-submit]');
+  if(adminPasswordSubmit) adminPasswordSubmit.addEventListener('click', async ()=>{
+    const errEl = document.getElementById('admin-err');
+    const email = (document.getElementById('admin-email').value || '').trim();
+    const password = document.getElementById('admin-password').value || '';
+    if(!email || !password){ errEl.textContent = 'الرجاء إدخال البريد الإلكتروني وكلمة السر'; return; }
+    try{
+      const result = await auth.signInWithEmailAndPassword(email, password);
+      await checkAdminEmail(result.user);
+    }catch(e){
+      console.error(e);
+      const messages = {
+        'auth/invalid-credential':'البريد الإلكتروني أو كلمة السر غير صحيحة',
+        'auth/wrong-password':'كلمة السر غير صحيحة',
+        'auth/user-not-found':'لا يوجد حساب بهذا البريد الإلكتروني',
+        'auth/invalid-email':'البريد الإلكتروني غير صالح',
+        'auth/too-many-requests':'محاولات كثيرة، حاولي بعد قليل'
+      };
+      errEl.textContent = messages[e.code] || ('تعذر تسجيل الدخول: ' + (e.code || e.message));
+    }
   });
 
   const adminSubmit = document.querySelector('[data-admin-submit]');
@@ -1595,7 +1633,7 @@ function attachAdminEvents(){
   app.innerHTML = `<div style="padding:80px; text-align:center; color:#7A6A6E;">جاري تحميل المتجر...</div>`;
   try{ const redirectResult = await auth.getRedirectResult(); if(redirectResult && redirectResult.user) await checkAdminEmail(redirectResult.user); }catch(e){ console.error(e); }
   auth.onAuthStateChanged(async user=>{
-    if(user && user.email !== ADMIN_EMAIL){
+    if(user && (!user.email || !ADMIN_EMAILS.includes(user.email.toLowerCase()))){
       auth.signOut();
       state.isAdmin = false;
       return;
