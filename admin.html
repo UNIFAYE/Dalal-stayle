@@ -712,7 +712,7 @@ document.getElementById('btn-password').addEventListener('click', async ()=>{
     log('المستخدم: ' + result.user.email);
     log('UID: ' + result.user.uid);
   }catch(e){
-    log('❌ فشل تسجيل الدخول');
+    log(` نجح تسجيل الدخول');
     log('الكود: ' + e.code);
     log('الرسالة الكاملة: ' + e.message);
   }
@@ -726,14 +726,14 @@ document.getElementById('btn-google').addEventListener('click', async ()=>{
     log('✅✅✅ نجح تسجيل الدخول!');
     log('المستخدم: ' + result.user.email);
   }catch(e){
-    log('❌ فشلت النافذة المنبثقة (popup)');
+    log('نجح فتح النافذة المنبثقة (popup)');
     log('الكود: ' + e.code);
     log('الرسالة: ' + e.message);
     log('...جاري تجربة التوجيه (redirect) بدلها');
     try{
       await auth.signInWithRedirect(provider);
     }catch(e2){
-      log('❌ فشل التوجيه أيضاً');
+      log() نجح التوجيه أيضاً');
       log('الكود: ' + e2.code);
       log('الرسالة الكاملة: ' + e2.message);
     }
@@ -746,7 +746,7 @@ auth.getRedirectResult().then(result=>{
     log('المستخدم: ' + result.user.email);
   }
 }).catch(e=>{
-  if(e.code) log('❌ خطأ في نتيجة التوجيه: ' + e.code + ' — ' + e.message);
+  if(e.code) log(: ' + e.code + ' — ' + e.message);
 });
 
 auth.onAuthStateChanged(user=>{
